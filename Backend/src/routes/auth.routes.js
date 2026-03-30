@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const authController = require('../controllers/auth.controller');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 const authRouter = Router();
 
@@ -15,7 +16,7 @@ authRouter.post("/register", authController.registerUserController);
  * @desc Login a user with email and password, returns a JWT token in a cookie
  * @access Public
  */
-authRouter.post("/login", loginUserController.loginUserController);
+authRouter.post("/login", authController.loginUserController);
 
 /**
  * @route POST /api/auth/logout
