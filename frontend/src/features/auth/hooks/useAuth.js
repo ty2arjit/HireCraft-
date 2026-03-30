@@ -14,5 +14,12 @@ export const useAuth = () => {
     setLoading(false);
   }
 
+  const handleSignup = async ({ username, email, password }) => {
+    setLoading(true);
+    const data = await signUp({ username, email, password })
+    setUser(data.user);
+    setLoading(false);
+  }
+
 
 }
