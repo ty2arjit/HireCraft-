@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../auth.context';
 import { login, signUp, logout, getMe } from '../services/auth.api';
 
 export const useAuth = () => {
@@ -9,23 +9,40 @@ export const useAuth = () => {
 
   const handleLogin = async ({ email, password }) => {
     setLoading(true);
+    try{
     const data = await login({ email, password })
     setUser(data.user);
-    setLoading(false);
+    }catch(error){
+      console.error('Login failed:', error);
+    } finally {
+      setLoading(false);
+    }
+
   }
 
   const handleSignup = async ({ username, email, password }) => {
     setLoading(true);
+    try {
     const data = await signUp({ username, email, password })
     setUser(data.user);
-    setLoading(false);
+    }catch(error){
+      console.error('Signup failed:', error);
+    }finally{
+      setLoading(false);
+    }
+   
   }
 
   const handleLogout = async () => {
     setLoading(true);
+    try {
     await logout();
     setUser(null);
+    }catch(error){
+      console.error('Logout failed:', error);
+    } finally {
     setLoading(false);
+    }
   }
 
   return {
